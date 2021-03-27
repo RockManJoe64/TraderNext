@@ -9,6 +9,7 @@ namespace TraderNext.Orders.Create
             RuleFor(o => o.Order).NotNull();
             When(o => o.Order != null, () => 
             {
+                RuleFor(o => o.Order.OrderId).NotEmpty();
                 RuleFor(o => o.Order.Symbol).NotEmpty();
                 RuleFor(o => o.Order.Quantity).NotEmpty();
                 RuleFor(o => o.Order.Price).NotEmpty();
