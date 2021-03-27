@@ -21,13 +21,7 @@ namespace TraderNext.Orders.Create
         {
             _validator.ValidateAndThrow(request);
 
-            var order = new Order
-            {
-                OrderId = request.OrderId,
-                Symbol = request.Symbol,
-                Quantity = request.Quantity,
-                Price = request.Price,
-            };
+            var order = request.Order;
 
             order = await _orderRepository.CreateOrderAsync(order);
 
