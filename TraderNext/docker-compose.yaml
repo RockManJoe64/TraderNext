@@ -8,6 +8,8 @@ services:
     restart: always
     volumes:
       - "/home/jose/data/docker/mysql:/var/lib/mysql"
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: tT6mGpGgTTnG
       MYSQL_USER: tradernext_dev
@@ -15,39 +17,21 @@ services:
       MYSQL_DATABASE: tradernext
     ulimits:
       nofile:
-        soft: "1024"
-        hard: "2048"
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    ulimits:
-      nofile:
-        soft: "1024"
-        hard: "2048"
+        soft: 1024
+        hard: 2048
 
   mongo:
     image: mongo
     restart: always
+    volumes:
+      - "/home/jose/data/docker/mongodb:/data/db"
+    ports:
+    - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: tradernext
     ulimits:
       nofile:
-        soft: "1024"
-        hard: "2048"
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-    ulimits:
-      nofile:
-        soft: "1024"
-        hard: "2048"
+        soft: 1024
+        hard: 2048
