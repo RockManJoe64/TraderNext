@@ -84,7 +84,3 @@ Deploy application
     cd "TraderNext/src/TraderNext"
     dotnet lambda deploy-serverless
 ```
-
-## Developer Tools Used
-
-1. [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers)
