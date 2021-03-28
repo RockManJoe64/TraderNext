@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TraderNext.Models;
 
-namespace TraderNext.Orders.Fetch
+namespace TraderNext.Core.Orders.Fetch
 {
     public interface IFetchOrdersService
     {

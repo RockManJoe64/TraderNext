@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TraderNext.Core.Orders.Repository;
 using TraderNext.Models;
 
-namespace TraderNext.Orders.Fetch
+namespace TraderNext.Core.Orders.Fetch
 {
     public class FetchOrdersService : IFetchOrdersService
     {
