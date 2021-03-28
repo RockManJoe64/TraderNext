@@ -8,18 +8,15 @@ namespace TraderNext.Orders.Create
 {
     public class CreateOrderRequestValidatorTests
     {
-        private static readonly Fixture _fixture = new Fixture();
-
         [Fact]
         public void ShouldPassValidation()
         {
             // Arrange
-            var request = new CreateOrderRequest
-            {
-                Order = _fixture.Create<Order>()
-            };
+            var fixture = new Fixture();
 
-            var underTest = new CreateOrderRequestValidator();
+            var request = fixture.Freeze<CreateOrderRequest>();
+
+            var underTest = fixture.Freeze<CreateOrderRequestValidator>();
 
             // Act
             var actual = underTest.Validate(request);
@@ -32,12 +29,13 @@ namespace TraderNext.Orders.Create
         public void ShouldFailWhenOrderIsNull()
         {
             // Arrange
-            var request = new CreateOrderRequest
-            {
-                Order = null,
-            };
+            var fixture = new Fixture();
 
-            var underTest = new CreateOrderRequestValidator();
+            var request = fixture.Build<CreateOrderRequest>()
+                .Without(o => o.Order)
+                .Create();
+
+            var underTest = fixture.Freeze<CreateOrderRequestValidator>();
 
             // Act
             var actual = underTest.Validate(request);
@@ -51,12 +49,12 @@ namespace TraderNext.Orders.Create
         public void ShouldFailWhenPropertyIsNull(Order order)
         {
             // Arrange
-            var request = new CreateOrderRequest
-            {
-                Order = order,
-            };
+            var fixture = new Fixture();
+            fixture.Inject(order);
 
-            var underTest = new CreateOrderRequestValidator();
+            var request = fixture.Freeze<CreateOrderRequest>();
+
+            var underTest = fixture.Freeze<CreateOrderRequestValidator>();
 
             // Act
             var actual = underTest.Validate(request);
@@ -67,10 +65,12 @@ namespace TraderNext.Orders.Create
 
         public static IEnumerable<object[]> GetOrders()
         {
-            yield return new object[] { _fixture.Build<Order>().Without(o => o.OrderId).Create() };
-            yield return new object[] { _fixture.Build<Order>().Without(o => o.Price).Create() };
-            yield return new object[] { _fixture.Build<Order>().Without(o => o.Quantity).Create() };
-            yield return new object[] { _fixture.Build<Order>().Without(o => o.Symbol).Create() };
+            var fixture = new Fixture();
+
+            yield return new object[] { fixture.Build<Order>().Without(o => o.OrderId).Create() };
+            yield return new object[] { fixture.Build<Order>().Without(o => o.Price).Create() };
+            yield return new object[] { fixture.Build<Order>().Without(o => o.Quantity).Create() };
+            yield return new object[] { fixture.Build<Order>().Without(o => o.Symbol).Create() };
         }
     }
 }
