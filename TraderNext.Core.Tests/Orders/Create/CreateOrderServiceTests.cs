@@ -2,6 +2,7 @@
 using AutoFixture.AutoMoq;
 using Moq;
 using Shouldly;
+using TraderNext.Core.Orders.Create;
 using TraderNext.Core.Orders.Repository;
 using TraderNext.Models;
 using Xunit;

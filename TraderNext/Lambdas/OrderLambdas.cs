@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using TraderNext.Data.Relational.Extensions;
-using TraderNext.Orders.Create;
 using TraderNext.Orders.Fetch;
 using TraderNext.Common.Exceptions;
 using TraderNext.Data.Relational.Repositories;
 using TraderNext.Core.Orders.Repository;
+using TraderNext.Core.Orders.Create;
 
 namespace TraderNext.Orders
 {

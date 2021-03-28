@@ -1,6 +1,6 @@
 ﻿using TraderNext.Models;
 
-namespace TraderNext.Orders.Create
+namespace TraderNext.Core.Orders.Create
 {
     public class CreateOrderRequest
     {
