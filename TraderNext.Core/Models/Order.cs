@@ -1,4 +1,4 @@
-﻿namespace TraderNext.Models
+﻿namespace TraderNext.Core.Models
 {
     public sealed class Order
     {
@@ -7,9 +7,9 @@
         public string OrderId { get; set; }
 
         public string Symbol { get; set; }
-        
+
         public int Quantity { get; set; }
-        
+
         public decimal Price { get; set; }
     }
 }

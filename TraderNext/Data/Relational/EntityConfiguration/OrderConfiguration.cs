@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TraderNext.Models;
+using TraderNext.Core.Models;
 
 namespace TraderNext.Data.Relational.EntityConfiguration
 {

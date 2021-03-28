@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using FluentValidation;
+using TraderNext.Core.Models;
 using TraderNext.Core.Orders.Repository;
-using TraderNext.Models;
 
 namespace TraderNext.Core.Orders.Create
 {

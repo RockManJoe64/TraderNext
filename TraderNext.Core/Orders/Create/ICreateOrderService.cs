@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using TraderNext.Models;
+using TraderNext.Core.Models;
 
 namespace TraderNext.Core.Orders.Create
 {

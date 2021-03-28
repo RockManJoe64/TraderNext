@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using AutoFixture;
 using Shouldly;
+using TraderNext.Core.Models;
 using TraderNext.Core.Orders.Create;
-using TraderNext.Models;
 using Xunit;
 
 namespace TraderNext.Orders.Create
