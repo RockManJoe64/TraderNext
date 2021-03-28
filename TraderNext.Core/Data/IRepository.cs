@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace TraderNext.Core.Data.Relational
+namespace TraderNext.Core.Data
 {
     public interface IRepository<TEntity>
         where TEntity : class

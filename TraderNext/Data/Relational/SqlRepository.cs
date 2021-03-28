@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using TraderNext.Core.Data.Relational;
+using TraderNext.Core.Data;
 
 namespace TraderNext.Data.Relational
 {
