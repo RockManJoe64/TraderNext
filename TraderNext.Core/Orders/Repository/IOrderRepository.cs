@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TraderNext.Core.Data.Relational;
 using TraderNext.Models;
 
-namespace TraderNext.Orders.Repository
+namespace TraderNext.Core.Orders.Repository
 {
     public interface IOrderRepository : IRepository<Order>
     {

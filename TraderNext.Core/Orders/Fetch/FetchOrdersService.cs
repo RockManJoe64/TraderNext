@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TraderNext.Core.Orders.Repository;
 using TraderNext.Models;
-using TraderNext.Orders.Repository;
 
 namespace TraderNext.Orders.Fetch
 {
