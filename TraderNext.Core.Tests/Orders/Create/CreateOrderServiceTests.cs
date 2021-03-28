@@ -44,8 +44,6 @@ namespace TraderNext.Orders.Create
             // Assert
             orderRepository.Verify();
 
-            actualResult.ID.ShouldNotBe(0);
-
             actualResult.ShouldBeEquivalentTo(originalOrder);
         }
     }
