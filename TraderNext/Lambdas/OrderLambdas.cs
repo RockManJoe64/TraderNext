@@ -12,7 +12,7 @@ using TraderNext.Core.Orders.Repository;
 using TraderNext.Data.Relational.Extensions;
 using TraderNext.Data.Relational.Repositories;
 
-namespace TraderNext.Orders
+namespace TraderNext.Lambdas.Orders
 {
     public class OrderLambdas
     {

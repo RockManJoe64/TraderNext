@@ -8,6 +8,10 @@ namespace TraderNext.Data.Relational
     {
         public DbSet<Order> Orders { get; set; }
 
+        public LambdaDbContext()
+        {
+        }
+
         public LambdaDbContext(DbContextOptions<LambdaDbContext> options)
             : base(options)
         {
