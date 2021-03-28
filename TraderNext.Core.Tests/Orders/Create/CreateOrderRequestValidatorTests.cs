@@ -2,10 +2,9 @@
 using AutoFixture;
 using Shouldly;
 using TraderNext.Core.Models;
-using TraderNext.Core.Orders.Create;
 using Xunit;
 
-namespace TraderNext.Orders.Create
+namespace TraderNext.Core.Orders.Create
 {
     public class CreateOrderRequestValidatorTests
     {
