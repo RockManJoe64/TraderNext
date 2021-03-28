@@ -89,6 +89,10 @@ namespace TraderNext.Lambdas.Orders
 
                 return response;
             }
+            catch (FluentValidation.ValidationException exception)
+            {
+                return exception.CreateResponse();
+            }
             catch (Exception exception)
             {
                 return exception.CreateResponse();
