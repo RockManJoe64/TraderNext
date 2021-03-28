@@ -1,16 +1,16 @@
-﻿using Amazon.Lambda.Core;
-using Amazon.Lambda.APIGatewayEvents;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
-using TraderNext.Data.Relational.Extensions;
+using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
+using Microsoft.Extensions.DependencyInjection;
 using TraderNext.Common.Exceptions;
-using TraderNext.Data.Relational.Repositories;
-using TraderNext.Core.Orders.Repository;
 using TraderNext.Core.Orders.Create;
 using TraderNext.Core.Orders.Fetch;
+using TraderNext.Core.Orders.Repository;
+using TraderNext.Data.Relational.Extensions;
+using TraderNext.Data.Relational.Repositories;
 
 namespace TraderNext.Orders
 {
@@ -45,9 +45,11 @@ namespace TraderNext.Orders
         {
             context.Logger.LogLine("GetOrders Request\n");
 
+            var fetchOrdersRequest = JsonSerializer.Deserialize<FetchOrdersRequest>(request.Body);
+
             using ServiceProvider serviceProvider = _services.BuildServiceProvider();
             var fetchOrderService = serviceProvider.GetService<IFetchOrdersService>();
-            var orders = fetchOrderService.FetchOrdersAsync()
+            var orders = fetchOrderService.FetchOrdersAsync(fetchOrdersRequest)
                 .GetAwaiter()
                 .GetResult();
 

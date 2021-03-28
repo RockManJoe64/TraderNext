@@ -6,6 +6,6 @@ namespace TraderNext.Core.Orders.Fetch
 {
     public interface IFetchOrdersService
     {
-        Task<IEnumerable<Order>> FetchOrdersAsync();
+        Task<IEnumerable<Order>> FetchOrdersAsync(FetchOrdersRequest request);
     }
 }

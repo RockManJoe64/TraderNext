@@ -14,7 +14,7 @@ namespace TraderNext.Core.Orders.Fetch
             _orderRepository = orderRepository;
         }
 
-        public async Task<IEnumerable<Order>> FetchOrdersAsync()
+        public async Task<IEnumerable<Order>> FetchOrdersAsync(FetchOrdersRequest request)
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
 
