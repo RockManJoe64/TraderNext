@@ -15,9 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraderNext.Core", "TraderNext.Core\TraderNext.Core.csproj", "{B53D1379-6634-443B-94DB-6B8F3727A5F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraderNext.Core", "TraderNext.Core\TraderNext.Core.csproj", "{B53D1379-6634-443B-94DB-6B8F3727A5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraderNext.Core.Tests", "TraderNext.Core.Tests\TraderNext.Core.Tests.csproj", "{346481FA-A74E-4135-888A-02396BB001A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TraderNext.Core.Tests", "TraderNext.Core.Tests\TraderNext.Core.Tests.csproj", "{346481FA-A74E-4135-888A-02396BB001A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TraderNext.Api", "TraderNext.Api\TraderNext.Api.csproj", "{332D423D-C4D3-4FBD-BAAD-3B5325D88640}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{346481FA-A74E-4135-888A-02396BB001A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{346481FA-A74E-4135-888A-02396BB001A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{346481FA-A74E-4135-888A-02396BB001A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332D423D-C4D3-4FBD-BAAD-3B5325D88640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332D423D-C4D3-4FBD-BAAD-3B5325D88640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332D423D-C4D3-4FBD-BAAD-3B5325D88640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332D423D-C4D3-4FBD-BAAD-3B5325D88640}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
