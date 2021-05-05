@@ -1,5 +1,7 @@
 # TraderNEXT
 
+<img src="https://d1.awsstatic.com/logos/aws-logo-lockups/poweredbyaws/PB_AWS_logo_RGB_stacked_REV_SQ.91cd4af40773cbfbd15577a3c2b8a346fe3e8fa2.png" width="50">
+
 This starter project consists of:
 * serverless.template - An AWS CloudFormation Serverless Application Model template file for declaring your Serverless functions and other AWS resources
 * Function.cs - Class file containing the C# method mapped to the single function declared in the template file
