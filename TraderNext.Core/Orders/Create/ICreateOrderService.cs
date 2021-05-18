@@ -5,6 +5,6 @@ namespace TraderNext.Core.Orders.Create
 {
     public interface ICreateOrderService
     {
-        Task<Order> CreateOrderAsync(CreateOrderRequest createOrderRequest);
+        Task<Order> CreateOrderAsync(Order order);
     }
 }

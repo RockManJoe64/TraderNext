@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text.Json;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using TraderNext.Api;
 using TraderNext.Common.Exceptions;
 using TraderNext.Core.Orders.Create;
 using TraderNext.Core.Orders.Fetch;
@@ -34,6 +36,7 @@ namespace TraderNext.Lambdas.Orders
             _services = new ServiceCollection();
             _services
                 .AddMySqlDbContext()
+                .AddAutoMapper(typeof(OrderLambdas))
                 .AddTransient<IOrderRepository, OrderRepository>()
                 .AddTransient<IFetchOrdersService, FetchOrdersService>()
                 .AddTransient<ICreateOrderService, CreateOrderService>()
@@ -45,15 +48,20 @@ namespace TraderNext.Lambdas.Orders
         {
             context.Logger.LogLine("GetOrders Request\n");
 
-            var fetchOrdersRequest = JsonSerializer.Deserialize<FetchOrdersRequest>(request.Body);
+            // TODO this would be used for advanced search
+            //var fetchOrdersRequest = FetchOrdersRequest.FromJson(request.Body);
 
             using ServiceProvider serviceProvider = _services.BuildServiceProvider();
             var fetchOrderService = serviceProvider.GetService<IFetchOrdersService>();
-            var orders = fetchOrderService.FetchOrdersAsync(fetchOrdersRequest)
+            var mapper = serviceProvider.GetService<IMapper>();
+
+            var orders = fetchOrderService.FetchOrdersAsync()
                 .GetAwaiter()
                 .GetResult();
 
-            var body = JsonSerializer.Serialize(orders);
+            var responseOrders = mapper.Map<IEnumerable<Core.Models.Order>, IEnumerable<Order>>(orders);
+
+            var body = JsonConvert.SerializeObject(orders);
             var response = new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
@@ -69,17 +77,22 @@ namespace TraderNext.Lambdas.Orders
         {
             context.Logger.LogLine("CreateOrder Request\n");
 
-            var createOrderRequest = JsonSerializer.Deserialize<CreateOrderRequest>(request.Body);
+            var createOrderRequest = CreateOrderRequest.FromJson(request.Body);
 
             using ServiceProvider serviceProvider = _services.BuildServiceProvider();
             var createOrderService = serviceProvider.GetService<ICreateOrderService>();
+            var mapper = serviceProvider.GetService<IMapper>();
             try
             {
-                var order = createOrderService.CreateOrderAsync(createOrderRequest)
+                var order = mapper.Map<Order, Core.Models.Order>(createOrderRequest.Order);
+
+                var createdOrder = createOrderService.CreateOrderAsync(order)
                     .GetAwaiter()
                     .GetResult();
 
-                var body = JsonSerializer.Serialize(order);
+                var responseOrder = mapper.Map<Core.Models.Order, Order>(createdOrder);
+
+                var body = responseOrder.ToJson();
                 var response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.Created,

@@ -7,11 +7,14 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using Newtonsoft.Json;
 using Shouldly;
-using TraderNext.Core.Models;
+using TraderNext.Api;
 using TraderNext.Core.Orders.Create;
+using TraderNext.Data.Mapping;
 using TraderNext.Lambdas.Orders;
 using Xunit;
 
@@ -26,15 +29,25 @@ namespace TraderNext.Tests.Lambdas
             var fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
+            var configuration = new MapperConfiguration(config =>
+            {
+                config.AddProfile<OrderProfile>();
+            });
+
+            var mapper = new Mapper(configuration);
+
             var order = fixture.Freeze<Order>();
+            var orderModel = mapper.Map<Core.Models.Order>(order);
             var createOrderRequest = fixture.Freeze<CreateOrderRequest>();
-            var body = JsonSerializer.Serialize(createOrderRequest);
+            var body = JsonConvert.SerializeObject(createOrderRequest);
 
             var createOrderService = fixture.Freeze<Mock<ICreateOrderService>>();
-            createOrderService.Setup(m => m.CreateOrderAsync(It.IsAny<CreateOrderRequest>()))
-                .ReturnsAsync(order);
+            createOrderService.Setup(m => m.CreateOrderAsync(It.IsAny<Core.Models.Order>()))
+                .ReturnsAsync(orderModel);
 
-            var services = new ServiceCollection().AddTransient(s => createOrderService.Object);
+            var services = new ServiceCollection()
+                .AddTransient(s => createOrderService.Object)
+                .AddTransient<IMapper>(s => mapper);
             fixture.Inject(services);
 
             var apiProxyRequest = fixture.Build<APIGatewayProxyRequest>()
@@ -58,9 +71,9 @@ namespace TraderNext.Tests.Lambdas
 
             actual.Body.ShouldNotBeNullOrEmpty();
 
-            var actualOrder = JsonSerializer.Deserialize<Order>(actual.Body);
+            var actualOrder = JsonConvert.DeserializeObject<Order>(actual.Body);
 
-            actualOrder.ShouldBeEquivalentTo(order);
+            actualOrder.OrderId.ShouldBe(order.OrderId);
         }
 
         [Theory]
@@ -72,14 +85,23 @@ namespace TraderNext.Tests.Lambdas
             var fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
+            var configuration = new MapperConfiguration(config =>
+            {
+                config.AddProfile<OrderProfile>();
+            });
+
+            var mapper = new Mapper(configuration);
+
             var createOrderRequest = fixture.Freeze<CreateOrderRequest>();
-            var body = JsonSerializer.Serialize(createOrderRequest);
+            var body = JsonConvert.SerializeObject(createOrderRequest);
 
             var createOrderService = fixture.Freeze<Mock<ICreateOrderService>>();
-            createOrderService.Setup(m => m.CreateOrderAsync(It.IsAny<CreateOrderRequest>()))
+            createOrderService.Setup(m => m.CreateOrderAsync(It.IsAny< Core.Models.Order> ()))
                 .ThrowsAsync(exception);
 
-            var services = new ServiceCollection().AddTransient(s => createOrderService.Object);
+            var services = new ServiceCollection()
+                .AddTransient(s => createOrderService.Object)
+                .AddTransient<IMapper>(s => mapper);
             fixture.Inject(services);
 
             var apiProxyRequest = fixture.Build<APIGatewayProxyRequest>()

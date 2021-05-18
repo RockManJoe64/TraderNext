@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TraderNext.Api;
 
 namespace TraderNext.Core.Orders.Create
 {

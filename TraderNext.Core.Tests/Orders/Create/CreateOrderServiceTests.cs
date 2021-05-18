@@ -22,7 +22,7 @@ namespace TraderNext.Core.Orders.Create
                 .Create();
             fixture.Inject(originalOrder);
 
-            var request = fixture.Freeze<CreateOrderRequest>();
+            var request = fixture.Freeze<Order>();
 
             var orderRepository = fixture.Freeze<Mock<IOrderRepository>>();
             orderRepository.Setup(m => m.CreateOrderAsync(It.IsAny<Order>()))
@@ -34,7 +34,7 @@ namespace TraderNext.Core.Orders.Create
                 })
                 .Verifiable();
 
-            var validator = fixture.Freeze<Mock<CreateOrderRequestValidator>>();
+            var validator = fixture.Freeze<Mock<OrderValidator>>();
 
             var underTest = fixture.Freeze<CreateOrderService>();
 

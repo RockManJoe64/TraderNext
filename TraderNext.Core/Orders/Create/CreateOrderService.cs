@@ -8,20 +8,18 @@ namespace TraderNext.Core.Orders.Create
     public class CreateOrderService : ICreateOrderService
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly CreateOrderRequestValidator _validator;
+        private readonly OrderValidator _validator;
 
         public CreateOrderService(IOrderRepository orderRepository,
-            CreateOrderRequestValidator validator)
+            OrderValidator validator)
         {
             _orderRepository = orderRepository;
             _validator = validator;
         }
 
-        public async Task<Order> CreateOrderAsync(CreateOrderRequest request)
+        public async Task<Order> CreateOrderAsync(Order order)
         {
-            _validator.ValidateAndThrow(request);
-
-            var order = request.Order;
+            _validator.ValidateAndThrow(order);
 
             order = await _orderRepository.CreateOrderAsync(order);
 
