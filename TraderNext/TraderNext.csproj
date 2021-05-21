@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
-    <PackageReference Include="TraderNext.Api" Version="0.1.33" />
+    <PackageReference Include="TraderNext.Api" Version="0.1.34" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TraderNext.Core\TraderNext.Core.csproj" />

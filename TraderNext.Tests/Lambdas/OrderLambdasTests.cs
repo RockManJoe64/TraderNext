@@ -31,6 +31,7 @@ namespace TraderNext.Tests.Lambdas
 
             var configuration = new MapperConfiguration(config =>
             {
+                config.AddProfile<CommonMappingProfile>();
                 config.AddProfile<OrderProfile>();
             });
 
@@ -87,6 +88,7 @@ namespace TraderNext.Tests.Lambdas
 
             var configuration = new MapperConfiguration(config =>
             {
+                config.AddProfile<CommonMappingProfile>();
                 config.AddProfile<OrderProfile>();
             });
 

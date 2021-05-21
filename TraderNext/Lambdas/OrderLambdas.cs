@@ -82,15 +82,16 @@ namespace TraderNext.Lambdas.Orders
             using ServiceProvider serviceProvider = _services.BuildServiceProvider();
             var createOrderService = serviceProvider.GetService<ICreateOrderService>();
             var mapper = serviceProvider.GetService<IMapper>();
+
             try
             {
-                var order = mapper.Map<Order, Core.Models.Order>(createOrderRequest.Order);
+                var order = mapper.Map<Core.Models.Order>(createOrderRequest.Order);
 
                 var createdOrder = createOrderService.CreateOrderAsync(order)
                     .GetAwaiter()
                     .GetResult();
 
-                var responseOrder = mapper.Map<Core.Models.Order, Order>(createdOrder);
+                var responseOrder = mapper.Map<Order>(createdOrder);
 
                 var body = responseOrder.ToJson();
                 var response = new APIGatewayProxyResponse

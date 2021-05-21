@@ -8,6 +8,7 @@ namespace TraderNext.Data.Mapping
         public OrderProfile()
         {
             CreateMap<Order, Core.Models.Order>()
+                .IgnoreAuditFields()
                 .ReverseMap();
         }
     }
