@@ -7,6 +7,8 @@ namespace TraderNext.Core.Orders.Repository
 {
     public interface IOrderTypeRepository : IRepository<OrderType>
     {
-        IEnumerable<OrderType> GetAllOrderTypes();
+        Task<IEnumerable<OrderType>> GetAllOrderTypesAsync();
+
+        Task<Order> EnrichOrderTypeFieldAsync(Order order);
     }
 }

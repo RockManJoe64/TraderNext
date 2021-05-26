@@ -24,14 +24,18 @@ namespace TraderNext.Core.Orders.Create
 
             var request = fixture.Freeze<Order>();
 
+            var order = fixture.Create<Order>();
+            order.ID = fixture.Create<long>();
+
             var orderRepository = fixture.Freeze<Mock<IOrderRepository>>();
             orderRepository.Setup(m => m.CreateOrderAsync(It.IsAny<Order>()))
-                .ReturnsAsync(() => 
-                {
-                    var order = fixture.Create<Order>();
-                    order.ID = fixture.Create<long>();
-                    return order;
-                })
+                .ReturnsAsync(order)
+                .Verifiable();
+
+            var orderTypeRepository = fixture.Freeze<Mock<IOrderTypeRepository>>();
+
+            orderTypeRepository.Setup(m => m.EnrichOrderTypeFieldAsync(It.IsAny<Order>()))
+                .ReturnsAsync(order)
                 .Verifiable();
 
             var validator = fixture.Freeze<Mock<OrderValidator>>();
@@ -43,6 +47,8 @@ namespace TraderNext.Core.Orders.Create
 
             // Assert
             orderRepository.Verify();
+
+            orderTypeRepository.Verify();
 
             actualResult.ShouldBeEquivalentTo(originalOrder);
         }
