@@ -3,7 +3,7 @@ using TraderNext.Core.Models;
 
 namespace TraderNext.Data.Mapping
 {
-    public static class MappingExtensions
+    public static class AutoMapperExtensions
     {
         public static IMappingExpression<TSource, TDestination> IgnoreAuditFields<TSource, TDestination>(
             this IMappingExpression<TSource, TDestination> expression)
