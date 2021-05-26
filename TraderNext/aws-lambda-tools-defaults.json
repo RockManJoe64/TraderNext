@@ -5,11 +5,12 @@
     "dotnet lambda help",
     "All the command line options for the Lambda command can be specified in this file."
   ],
-  "profile": "",
-  "region": "",
+  "profile": "default",
+  "region": "us-east-2",
   "configuration": "Release",
   "s3-prefix": "TraderNext/",
   "template": "serverless.template",
   "template-parameters": "",
-  "docker-host-build-output-dir": "./bin/Release/net5.0/linux-x64/publish"
+  "docker-host-build-output-dir": "./bin/Release/net5.0/linux-x64/publish",
+  "package-type": "image"
 }
