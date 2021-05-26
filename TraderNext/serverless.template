@@ -15,7 +15,7 @@
             "TraderNext::TraderNext.Functions::Get"
           ]
         },
-        "ImageUri": "",
+        "ImageUri": "403158657852.dkr.ecr.us-east-2.amazonaws.com/rockmanjoe64",
         "MemorySize": 256,
         "Timeout": 30,
         "Role": null,
@@ -50,7 +50,7 @@
             "TraderNext::TraderNext.Orders.OrderLambdas::GetOrders"
           ]
         },
-        "ImageUri": "",
+        "ImageUri": "403158657852.dkr.ecr.us-east-2.amazonaws.com/rockmanjoe64",
         "MemorySize": 256,
         "Timeout": 30,
         "Role": null,
@@ -85,7 +85,7 @@
             "TraderNext::TraderNext.Orders.OrderLambdas::CreateOrder"
           ]
         },
-        "ImageUri": "",
+        "ImageUri": "403158657852.dkr.ecr.us-east-2.amazonaws.com/rockmanjoe64",
         "MemorySize": 256,
         "Timeout": 30,
         "Role": null,
