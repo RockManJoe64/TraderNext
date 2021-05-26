@@ -37,5 +37,7 @@ namespace TraderNext.Core.Models
         public DateTime ModifiedTime { get; set; }
      
         public long ModifiedBy { get; set; }
+
+        public OrderType OrderType { get; set; }
     }
 }
