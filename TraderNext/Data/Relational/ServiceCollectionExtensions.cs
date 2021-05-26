@@ -11,10 +11,10 @@ namespace TraderNext.Data.Relational.Extensions
         {
             var mysqlConnectionString = Environment.GetEnvironmentVariable(EnvironmentVariables.MySqlConnectionString);
 
+            var serverVersion = ServerVersion.AutoDetect(mysqlConnectionString);
+
             services.AddDbContextPool<LambdaDbContext>(
-                options => options.UseMySql(
-                    mysqlConnectionString
-                )
+                options => options.UseMySql(mysqlConnectionString, serverVersion)
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
             );
