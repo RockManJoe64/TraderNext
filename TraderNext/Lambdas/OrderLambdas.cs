@@ -13,6 +13,7 @@ using TraderNext.Core.Orders.Fetch;
 using TraderNext.Core.Orders.Repository;
 using TraderNext.Data.Relational.Extensions;
 using TraderNext.Data.Relational.Repositories;
+using OrderModel = TraderNext.Core.Models.Order;
 
 namespace TraderNext.Lambdas.Orders
 {
@@ -34,10 +35,16 @@ namespace TraderNext.Lambdas.Orders
         private void ConfigureServices()
         {
             _services = new ServiceCollection();
+
             _services
                 .AddMySqlDbContext()
-                .AddAutoMapper(typeof(OrderLambdas))
                 .AddTransient<IOrderRepository, OrderRepository>()
+                .AddTransient<IOrderTypeRepository, OrderTypeRepository>();
+
+            _services
+                .AddAutoMapper(typeof(OrderLambdas));
+
+            _services
                 .AddTransient<IFetchOrdersService, FetchOrdersService>()
                 .AddTransient<ICreateOrderService, CreateOrderService>()
                 .AddScoped<CreateOrderRequestValidator>();
@@ -59,7 +66,7 @@ namespace TraderNext.Lambdas.Orders
                 .GetAwaiter()
                 .GetResult();
 
-            var responseOrders = mapper.Map<IEnumerable<Core.Models.Order>, IEnumerable<Order>>(orders);
+            var responseOrders = mapper.Map<IEnumerable<OrderModel>, IEnumerable<Order>>(orders);
 
             var body = JsonConvert.SerializeObject(orders);
             var response = new APIGatewayProxyResponse
@@ -85,7 +92,7 @@ namespace TraderNext.Lambdas.Orders
 
             try
             {
-                var order = mapper.Map<Core.Models.Order>(createOrderRequest.Order);
+                var order = mapper.Map<OrderModel>(createOrderRequest.Order);
 
                 var createdOrder = createOrderService.CreateOrderAsync(order)
                     .GetAwaiter()
