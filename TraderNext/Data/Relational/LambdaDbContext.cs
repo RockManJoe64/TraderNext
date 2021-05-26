@@ -1,13 +1,10 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using TraderNext.Core.Models;
 
 namespace TraderNext.Data.Relational
 {
     public class LambdaDbContext : DbContext
     {
-        public DbSet<Order> Orders { get; set; }
-
         public LambdaDbContext()
         {
         }
