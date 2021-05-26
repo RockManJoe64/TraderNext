@@ -363,3 +363,6 @@ FodyWeavers.xsd
 
 # Ignore, and allow developer to use their own version via nuget.template.config
 nuget.config
+
+# AWS SAM Build
+.aws-sam/
