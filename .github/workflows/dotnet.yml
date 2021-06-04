@@ -35,8 +35,9 @@ jobs:
         aws-region: us-east-2
 
     - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+      #id: login-ecr
+      #uses: aws-actions/amazon-ecr-login@v1
+      run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin public.ecr.aws/z8u1m2l7
 
     - name: Package Lambdas Project
       run: |
