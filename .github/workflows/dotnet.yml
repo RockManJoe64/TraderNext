@@ -49,5 +49,6 @@ jobs:
         ECR_REPOSITORY: tradernext
         IMAGE_TAG: latest
       run: |
+        cd TraderNext
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} .
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
