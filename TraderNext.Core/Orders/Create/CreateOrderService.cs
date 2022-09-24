@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentValidation;
 using TraderNext.Core.Models;
 using TraderNext.Core.Orders.Repository;
@@ -24,9 +25,18 @@ namespace TraderNext.Core.Orders.Create
         {
             _validator.ValidateAndThrow(order);
 
-            order = await _orderRepository.CreateOrderAsync(order);
+            order = CalculateAmount(order);
 
             order = await _orderTypeRepository.EnrichOrderTypeFieldAsync(order);
+
+            order = await _orderRepository.CreateOrderAsync(order);
+
+            return order;
+        }
+
+        private static Order CalculateAmount(Order order)
+        {
+            order.Amount = order.Price * order.Quantity; // TODO need to consider StopPrice
 
             return order;
         }

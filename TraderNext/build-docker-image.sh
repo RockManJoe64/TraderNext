@@ -4,7 +4,7 @@
 # Run it from Git Bash
 
 # Authenticate against AWS ECR Public Registry
-aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/z8u1m2l7
+aws ecr get-login-password --profile ecr --region us-east-2 | docker login --username AWS --password-stdin public.ecr.aws/z8u1m2l7
 
 # Build and publish as linux-x64 compatible
 dotnet publish -c Release -r linux-x64

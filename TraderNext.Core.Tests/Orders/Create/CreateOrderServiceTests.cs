@@ -3,6 +3,7 @@ using AutoFixture.AutoMoq;
 using Moq;
 using Shouldly;
 using TraderNext.Core.Models;
+using TraderNext.Core.Orders.Fixtures;
 using TraderNext.Core.Orders.Repository;
 using Xunit;
 
@@ -17,28 +18,21 @@ namespace TraderNext.Core.Orders.Create
             var fixture = new Fixture();
             fixture.Customize(new AutoMoqCustomization());
 
-            var originalOrder = fixture.Build<Order>()
+            var request = fixture.Build<Order>()
                 .Without(o => o.ID)
                 .Create();
-            fixture.Inject(originalOrder);
 
-            var request = fixture.Freeze<Order>();
-
-            var order = fixture.Create<Order>();
-            order.ID = fixture.Create<long>();
-
-            var orderRepository = fixture.Freeze<Mock<IOrderRepository>>();
-            orderRepository.Setup(m => m.CreateOrderAsync(It.IsAny<Order>()))
-                .ReturnsAsync(order)
-                .Verifiable();
+            var expectedAmount = request.Price * request.Quantity;
 
             var orderTypeRepository = fixture.Freeze<Mock<IOrderTypeRepository>>();
 
             orderTypeRepository.Setup(m => m.EnrichOrderTypeFieldAsync(It.IsAny<Order>()))
-                .ReturnsAsync(order)
-                .Verifiable();
+                .ReturnsAsync((Order o) => o);
 
-            var validator = fixture.Freeze<Mock<OrderValidator>>();
+            var orderRepository = fixture.Freeze<Mock<IOrderRepository>>();
+
+            orderRepository.Setup(m => m.CreateOrderAsync(It.IsAny<Order>()))
+                .ReturnsAsync((Order o) => o);
 
             var underTest = fixture.Freeze<CreateOrderService>();
 
@@ -46,11 +40,13 @@ namespace TraderNext.Core.Orders.Create
             var actualResult = await underTest.CreateOrderAsync(request);
 
             // Assert
-            orderRepository.Verify();
+            orderRepository.Verify(m => m.CreateOrderAsync(It.IsAny<Order>()), 
+                Times.AtLeastOnce());
 
-            orderTypeRepository.Verify();
+            orderTypeRepository.Verify(m => m.EnrichOrderTypeFieldAsync(It.IsAny<Order>()), 
+                Times.AtLeastOnce());
 
-            actualResult.ShouldBeEquivalentTo(originalOrder);
+            actualResult.Amount.ShouldBe(expectedAmount);
         }
     }
 }

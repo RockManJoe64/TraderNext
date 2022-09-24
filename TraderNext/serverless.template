@@ -47,7 +47,7 @@
             "/lambda-entrypoint.sh"
           ],
           "Command": [
-            "TraderNext::TraderNext.Orders.OrderLambdas::GetOrders"
+            "TraderNext::TraderNext.Lambdas.Orders.OrderLambdas::GetOrders"
           ]
         },
         "ImageUri": "public.ecr.aws/z8u1m2l7/tradernext:latest",
@@ -82,7 +82,7 @@
             "/lambda-entrypoint.sh"
           ],
           "Command": [
-            "TraderNext::TraderNext.Orders.OrderLambdas::CreateOrder"
+            "TraderNext::TraderNext.Lambdas.Orders.OrderLambdas::CreateOrder"
           ]
         },
         "ImageUri": "public.ecr.aws/z8u1m2l7/tradernext:latest",

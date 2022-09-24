@@ -23,7 +23,7 @@ namespace TraderNext.Data.Relational.Repositories
 
         public async Task<Order> EnrichOrderTypeFieldAsync(Order order)
         {
-            if (string.IsNullOrEmpty(order.OrderType?.Code) || order.OrderType?.ID == 0L)
+            if (string.IsNullOrEmpty(order.OrderType?.Code))
             {
                 return order;
             }

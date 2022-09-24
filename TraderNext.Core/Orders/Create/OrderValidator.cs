@@ -10,7 +10,7 @@ namespace TraderNext.Core.Orders.Create
             RuleFor(o => o.OrderId).NotEmpty();
             RuleFor(o => o.Symbol).NotEmpty();
             RuleFor(o => o.Quantity).NotEmpty();
-            RuleFor(o => o.Price).NotEmpty();
+            RuleFor(o => o.Price).NotEmpty(); // TODO need to consider StopPrice
         }
     }
 }
